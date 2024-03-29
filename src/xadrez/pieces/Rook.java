@@ -14,6 +14,9 @@ public class Rook extends ChassPiece {
 	public String toString() {
 		return "R";
 	}
-	
-	
+	@Override
+	public boolean[][] possibleMovies() {		
+		boolean[][] mat = new boolean[getTabuleiro().getRows()][getTabuleiro().getColumns()];
+		return mat;
+	}		
 }

@@ -15,4 +15,10 @@ public class King extends ChassPiece {
 		return "K";
 	}
 
+	@Override
+	public boolean[][] possibleMovies() {		
+		boolean[][] mat = new boolean[getTabuleiro().getRows()][getTabuleiro().getColumns()];
+		return mat;
+	}
+
 }
