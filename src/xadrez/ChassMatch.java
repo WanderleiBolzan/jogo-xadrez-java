@@ -1,12 +1,14 @@
 package xadrez;
 
 import boardgame.Board;
+import boardgame.Piece;
+import boardgame.Position;
 import xadrez.pieces.King;
 import xadrez.pieces.Rook;
 
 public class ChassMatch {
 	
-	Board board;
+	private Board board;
 	
 	public ChassMatch() {
 		board = new Board(8, 8);
@@ -22,11 +24,32 @@ public class ChassMatch {
 		}
 		return mat;
 	}
-
+	
+	public ChassPiece performChessMove(ChessPosition sourcePosition, ChessPosition targetPosition) {
+		Position source = sourcePosition.toPosition();
+		Position target = targetPosition.toPosition();
+		validateSourcePosition(source);
+		Piece capturedPiece = makeMove(source, target);
+		return (ChassPiece) capturedPiece;
+	}
+	
+	private Piece makeMove(Position source, Position target) {
+		Piece p = board.removePiece(source);
+		Piece capturedPiece = board.removePiece(target);
+		board.placePiece(p, target);
+		return capturedPiece;
+	}
+	
+	private void validateSourcePosition(Position position) {
+		if (!board.thereisAPiece(position)) {
+			throw new ChessException("Não há peça nessa posição");
+		}
+	}
+	
 	private void placeNewPiece(char column, int row, ChassPiece piece) {
 		board.placePiece(piece, new ChessPosition(column, row).toPosition());
-		
 	}
+	
 	private void initialSetup() {
 		placeNewPiece('c', 1, new Rook(board, Color.BRANCO));
         placeNewPiece('c', 2, new Rook(board, Color.BRANCO));
