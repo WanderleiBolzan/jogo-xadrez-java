@@ -1,13 +1,13 @@
 package application;
 
-import boardgame.Posicao;
+import xadrez.ChassMatch;
 
 public class Program {
 
-	public static void main(String[] args) {
-
-		Posicao pos = new Posicao(3, 5);
-		System.out.println(pos);
+	public static void main(String[] args) {	
+		
+		ChassMatch chassMatch = new  ChassMatch();
+		UI.printBoard(chassMatch.getPieces());
 		
 	}
 
