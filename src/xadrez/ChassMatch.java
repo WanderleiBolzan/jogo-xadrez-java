@@ -1,6 +1,9 @@
 package xadrez;
 
 import boardgame.Board;
+import boardgame.Position;
+import xadrez.pieces.King;
+import xadrez.pieces.Rook;
 
 public class ChassMatch {
 	
@@ -8,6 +11,7 @@ public class ChassMatch {
 	
 	public ChassMatch() {
 		board = new Board(8, 8);
+		initialSetup();
 	}
 	
 	public ChassPiece[][] getPieces() {
@@ -20,4 +24,9 @@ public class ChassMatch {
 		return mat;
 	}
 
+	private void initialSetup() {
+		board.placePiece(new Rook(board, Color.BRANCO), new Position(2, 1));
+		board.placePiece(new King(board, Color.PRETO), new Position(0, 4));		
+		board.placePiece(new King(board, Color.BRANCO), new Position(7, 4));		
+	}
 }
