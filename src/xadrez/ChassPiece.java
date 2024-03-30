@@ -1,7 +1,8 @@
 package xadrez;
 
-import boardgame.Piece;
 import boardgame.Board;
+import boardgame.Piece;
+import boardgame.Position;
 
 public abstract class ChassPiece extends Piece {
 	
@@ -16,4 +17,9 @@ public abstract class ChassPiece extends Piece {
 		return cor;
 	}
 
+	protected boolean isThereOponentPeace(Position position) {
+		ChassPiece p = (ChassPiece) getTabuleiro().piece(position);
+		return p != null && p.getCor() != cor;
+	}
+	
 }
