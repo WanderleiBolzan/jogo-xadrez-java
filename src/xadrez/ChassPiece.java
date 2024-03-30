@@ -16,6 +16,10 @@ public abstract class ChassPiece extends Piece {
 	public Color getCor() {
 		return cor;
 	}
+	
+	public ChessPosition getChessPosition() {
+		return ChessPosition.fromPosition(position);
+	}
 
 	protected boolean isThereOponentPeace(Position position) {
 		ChassPiece p = (ChassPiece) getTabuleiro().piece(position);

@@ -1,7 +1,9 @@
 package xadrez;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import boardgame.Board;
 import boardgame.Piece;
@@ -14,6 +16,7 @@ public class ChassMatch {
 	private int turn;
 	private Color currentPlayer;
 	private Board board;
+	private boolean check;
 	
 	private List<Piece> piecesOnTheBoard = new ArrayList<>();
 	private List<Piece> capturedPieces = new ArrayList<>();
@@ -21,6 +24,7 @@ public class ChassMatch {
 		board = new Board(8, 8);
 		turn = 1;
 		currentPlayer = Color.BRANCO;
+		check = false;
 		initialSetup();
 	}
 	
@@ -30,6 +34,10 @@ public class ChassMatch {
 	
 	public Color getCurrentPlayer() {
 		return currentPlayer;
+	}
+	
+	public boolean getCheck() {
+		return check;
 	}
 	
 	public ChassPiece[][] getPieces() {
@@ -54,6 +62,13 @@ public class ChassMatch {
 		validateSourcePosition(source);
 		validateTargetPosition(source, target);
 		Piece capturedPiece = makeMove(source, target);
+		if (testChek(currentPlayer)) {
+			undoMovie(source, target, capturedPiece);
+			throw new ChessException("Você não pode se colocar em check");
+		}
+		
+		check = (testChek(opponent(currentPlayer))) ? true: false;
+		
 		nextTurn();
 		return (ChassPiece) capturedPiece;
 	}
@@ -69,6 +84,13 @@ public class ChassMatch {
 		}
 		
 		return capturedPiece;
+	}
+	
+	private void undoMovie(Position source, Position target, Piece capturedPice) {
+		Piece p = board.removePiece(target);
+		board.placePiece(p, source);
+		capturedPieces.remove(capturedPice);
+		piecesOnTheBoard.add(capturedPice);
 	}
 	
 	private void validateSourcePosition(Position position) {
@@ -92,6 +114,33 @@ public class ChassMatch {
 	private void nextTurn() {
 		turn++;
 		currentPlayer = (currentPlayer == Color.BRANCO) ? Color.PRETO : Color.BRANCO;
+	}
+	
+	private Color opponent(Color color) {
+		return (color == Color.BRANCO) ? Color.PRETO: Color.BRANCO;
+	}
+	
+	private ChassPiece king(Color color) {
+		List<Piece> list = piecesOnTheBoard.stream().filter(x -> ((ChassPiece)x).getCor() == color).collect(Collectors.toList());
+		for (Piece p : list) {
+			if (p instanceof King) {
+				return (ChassPiece)p;
+			}
+		}
+		throw new IllegalStateException("Não existe no " + color + "o Rei no Tabuleiro");
+	}
+	
+	private boolean testChek(Color color) {
+		
+		Position kingPosition = king(color).getChessPosition().toPosition();
+		List<Piece> opponentPieces = piecesOnTheBoard.stream().filter(x -> ((ChassPiece)x).getCor() == opponent(color)).collect(Collectors.toList());
+		for (Piece p : opponentPieces) {
+			boolean[][] mat = p.possibleMovies();
+			if (mat[kingPosition.getRows()][kingPosition.getColumns()]) {
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	private void placeNewPiece(char column, int row, ChassPiece piece) {
