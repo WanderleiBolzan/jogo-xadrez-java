@@ -8,11 +8,23 @@ import xadrez.pieces.Rook;
 
 public class ChassMatch {
 	
+	private int turn;
+	private Color currentPlayer;
 	private Board board;
 	
 	public ChassMatch() {
 		board = new Board(8, 8);
+		turn = 1;
+		currentPlayer = Color.BRANCO;
 		initialSetup();
+	}
+	
+	public int getTurn() {
+		return turn;
+	}
+	
+	public Color getCurrentPlayer() {
+		return currentPlayer;
 	}
 	
 	public ChassPiece[][] getPieces() {
@@ -37,6 +49,7 @@ public class ChassMatch {
 		validateSourcePosition(source);
 		validateTargetPosition(source, target);
 		Piece capturedPiece = makeMove(source, target);
+		nextTurn();
 		return (ChassPiece) capturedPiece;
 	}
 	
@@ -51,6 +64,9 @@ public class ChassMatch {
 		if (!board.thereisAPiece(position)) {
 			throw new ChessException("Não há peça nessa posição");
 		}
+		if (currentPlayer != ((ChassPiece)board.piece(position)).getCor()) {
+			throw new ChessException("A peça escolhida não é sua");
+		}
 		if(!board.piece(position).isThereAnyPossibleMove()) {
 			throw new ChessException("Não existe movimentos possíveis para a peça escolhida");
 		}
@@ -60,6 +76,11 @@ public class ChassMatch {
 		if (!board.piece(source).possibleMovie(target)) {
 			throw new ChessException("A peça escolhida não pode ser movida para o destino desejado");
 		}
+	}
+	
+	private void nextTurn() {
+		turn++;
+		currentPlayer = (currentPlayer == Color.BRANCO) ? Color.PRETO : Color.BRANCO;
 	}
 	
 	private void placeNewPiece(char column, int row, ChassPiece piece) {
