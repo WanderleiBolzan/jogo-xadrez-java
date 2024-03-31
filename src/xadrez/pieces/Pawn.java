@@ -24,7 +24,7 @@ public class Pawn extends ChassPiece {
 			}
 			// Testando o primeiro movimento do pião
 			p.setValues(position.getRows()-2, position.getColumns());
-			Position p2 = new Position(position.getRows()-1, position.getColumns());
+			Position p2 = new Position(position.getRows()+1, position.getColumns());
 			if (getTabuleiro().positionExists(p) && !getTabuleiro().thereIsAPiece(p) && getTabuleiro().positionExists(p2) && !getTabuleiro().thereIsAPiece(p2) && getMoveCount() == 0 ) {
 				mat[p.getRows()][p.getColumns()] = true;
 			}
