@@ -18,7 +18,7 @@ public class King extends ChassPiece {
 	
 	private boolean canMovie(Position position) {
 		ChassPiece p = (ChassPiece) getTabuleiro().piece(position);
-		return p == null || getCor() != getCor();
+		return p == null || getColor() != getColor();
 	}
 
 	@Override

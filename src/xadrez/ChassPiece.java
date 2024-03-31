@@ -5,25 +5,37 @@ import boardgame.Piece;
 import boardgame.Position;
 
 public abstract class ChassPiece extends Piece {
-	
-	private Color cor;
 
-	public ChassPiece(Board board, Color cor) {
+	private Color color;
+	private int moveCount;
+
+	public ChassPiece(Board board, Color color) {
 		super(board);
-		this.cor = cor;
+		this.color = color;
 	}
 
-	public Color getCor() {
-		return cor;
+	public Color getColor() {
+		return color;
 	}
 	
+	public int getMoveCount() {
+		return moveCount;
+	}
+	
+	public void increaseMoveCount() {
+		moveCount++;
+	}
+
+	public void decreaseMoveCount() {
+		moveCount--;
+	}
+
 	public ChessPosition getChessPosition() {
 		return ChessPosition.fromPosition(position);
 	}
-
-	protected boolean isThereOponentPeace(Position position) {
-		ChassPiece p = (ChassPiece) getTabuleiro().piece(position);
-		return p != null && p.getCor() != cor;
-	}
 	
+	protected boolean isThereOpponentPiece(Position position) {
+		ChassPiece p = (ChassPiece)getTabuleiro().piece(position);
+		return p != null && p.getColor() != color;
+	}
 }

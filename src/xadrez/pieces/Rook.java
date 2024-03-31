@@ -26,7 +26,7 @@ public class Rook extends ChassPiece {
 			mat[p.getRows()][p.getColumns()] = true;
 			p.setRows(p.getRows()-1);
 		}
-		if (getTabuleiro().positionExists(p) && isThereOponentPeace(p)) {
+		if (getTabuleiro().positionExists(p) && isThereOpponentPiece(p)) {
 			mat[p.getRows()][p.getColumns()] = true;
 		}
 
@@ -36,7 +36,7 @@ public class Rook extends ChassPiece {
 			mat[p.getRows()][p.getColumns()] = true;
 			p.setColumns(p.getColumns()-1);
 		}
-		if (getTabuleiro().positionExists(p) && isThereOponentPeace(p)) {
+		if (getTabuleiro().positionExists(p) && isThereOpponentPiece(p)) {
 			mat[p.getRows()][p.getColumns()] = true;
 		}
 
@@ -46,7 +46,7 @@ public class Rook extends ChassPiece {
 			mat[p.getRows()][p.getColumns()] = true;
 			p.setColumns(p.getColumns()+1);
 		}
-		if (getTabuleiro().positionExists(p) && isThereOponentPeace(p)) {
+		if (getTabuleiro().positionExists(p) && isThereOpponentPiece(p)) {
 			mat[p.getRows()][p.getColumns()] = true;
 		}
 
@@ -56,11 +56,9 @@ public class Rook extends ChassPiece {
 			mat[p.getRows()][p.getColumns()] = true;
 			p.setRows(p.getRows() + 1);
 		}
-		if (getTabuleiro().positionExists(p) && isThereOponentPeace(p)) {
+		if (getTabuleiro().positionExists(p) && isThereOpponentPiece(p)) {
 			mat[p.getRows()][p.getColumns()] = true;
 		}
-		
-		
 		return mat;
 	}
 	
