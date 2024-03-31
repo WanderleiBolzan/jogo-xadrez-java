@@ -5,56 +5,58 @@ import boardgame.Position;
 import xadrez.ChassPiece;
 import xadrez.Color;
 
-public class Rook extends ChassPiece {
+public class Bishop extends ChassPiece {
 
-	public Rook(Board board, Color cor) {
-		super(board, cor);		
+	
+	public Bishop(Board board, Color color) {
+		super(board, color);
 	}
 
 	@Override
 	public String toString() {
-		return "R";
+		return "B";
 	}
+
 	@Override
 	public boolean[][] possibleMovies() {		
 		boolean[][] mat = new boolean[getTabuleiro().getRows()][getTabuleiro().getColumns()];
 		
 		Position p = new Position(0, 0);
-		// Criando o movimento para cima da peça Torre 
-		p.setValues(position.getRows() - 1 , position.getColumns());
+		// nw  (Noroeste)
+		p.setValues(position.getRows() - 1 , position.getColumns()-1);
 		while (getTabuleiro().positionExists(p) && !getTabuleiro().thereIsAPiece(p)) {
 			mat[p.getRows()][p.getColumns()] = true;
-			p.setRows(p.getRows()-1);
+			p.setValues(p.getRows()-1 , p.getColumns()-1);
 		}
 		if (getTabuleiro().positionExists(p) && isThereOpponentPiece(p)) {
 			mat[p.getRows()][p.getColumns()] = true;
 		}
 
-		// Criando o movimento para esquerda da peça Torre 
-		p.setValues(position.getRows(), position.getColumns()-1);
+		// ne - Nordeste
+		p.setValues(position.getRows()-1, position.getColumns()+1);
 		while (getTabuleiro().positionExists(p) && !getTabuleiro().thereIsAPiece(p)) {
 			mat[p.getRows()][p.getColumns()] = true;
-			p.setColumns(p.getColumns()-1);
+			p.setValues(p.getRows()-1, p.getColumns()+1);
 		}
 		if (getTabuleiro().positionExists(p) && isThereOpponentPiece(p)) {
 			mat[p.getRows()][p.getColumns()] = true;
 		}
 
-		// Criando o movimento para esquerda da peça Torre 
-		p.setValues(position.getRows(), position.getColumns()+1);
+		// se - Sudeste
+		p.setValues(position.getRows()+1, position.getColumns()+1);
 		while (getTabuleiro().positionExists(p) && !getTabuleiro().thereIsAPiece(p)) {
 			mat[p.getRows()][p.getColumns()] = true;
-			p.setColumns(p.getColumns()+1);
+			p.setValues(p.getRows(), p.getColumns()+1);
 		}
 		if (getTabuleiro().positionExists(p) && isThereOpponentPiece(p)) {
 			mat[p.getRows()][p.getColumns()] = true;
 		}
 
-		// Criando o movimento para baixo da peça Torre 
-		p.setValues(position.getRows() + 1, position.getColumns());
+		// sw - Sudoeste
+		p.setValues(position.getRows() - 1, position.getColumns()+1);
 		while (getTabuleiro().positionExists(p) && !getTabuleiro().thereIsAPiece(p)) {
 			mat[p.getRows()][p.getColumns()] = true;
-			p.setRows(p.getRows() + 1);
+			p.setValues(p.getRows()+1, p.getColumns()-1);
 		}
 		if (getTabuleiro().positionExists(p) && isThereOpponentPiece(p)) {
 			mat[p.getRows()][p.getColumns()] = true;

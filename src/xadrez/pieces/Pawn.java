@@ -19,13 +19,13 @@ public class Pawn extends ChassPiece {
 		
 		if (getColor() == Color.BRANCO) {
 			p.setValues(position.getRows()-1, position.getColumns());
-			if (getTabuleiro().positionExists(p) && !getTabuleiro().thereisAPiece(p)) {
+			if (getTabuleiro().positionExists(p) && !getTabuleiro().thereIsAPiece(p)) {
 				mat[p.getRows()][p.getColumns()] = true;
 			}
 			// Testando o primeiro movimento do pião
 			p.setValues(position.getRows()-2, position.getColumns());
 			Position p2 = new Position(position.getRows()-1, position.getColumns());
-			if (getTabuleiro().positionExists(p) && !getTabuleiro().thereisAPiece(p) && getTabuleiro().positionExists(p2) && !getTabuleiro().thereisAPiece(p2) && getMoveCount() == 0 ) {
+			if (getTabuleiro().positionExists(p) && !getTabuleiro().thereIsAPiece(p) && getTabuleiro().positionExists(p2) && !getTabuleiro().thereIsAPiece(p2) && getMoveCount() == 0 ) {
 				mat[p.getRows()][p.getColumns()] = true;
 			}
 			p.setValues(position.getRows()-1, position.getColumns()-1 );
@@ -39,13 +39,13 @@ public class Pawn extends ChassPiece {
 		}
 		else {
 			p.setValues(position.getRows()+1, position.getColumns());
-			if (getTabuleiro().positionExists(p) && !getTabuleiro().thereisAPiece(p)) {
+			if (getTabuleiro().positionExists(p) && !getTabuleiro().thereIsAPiece(p)) {
 				mat[p.getRows()][p.getColumns()] = true;
 			}
 			// Testando o primeiro movimento do pião
 			p.setValues(position.getRows()+2, position.getColumns());
 			Position p2 = new Position(position.getRows() - 1, position.getColumns());
-			if (getTabuleiro().positionExists(p) && !getTabuleiro().thereisAPiece(p) && getTabuleiro().positionExists(p2) && !getTabuleiro().thereisAPiece(p2) && getMoveCount() == 0 ) {
+			if (getTabuleiro().positionExists(p) && !getTabuleiro().thereIsAPiece(p) && getTabuleiro().positionExists(p2) && !getTabuleiro().thereIsAPiece(p2) && getMoveCount() == 0 ) {
 				mat[p.getRows()][p.getColumns()] = true;
 			}
 			p.setValues(position.getRows()+1, position.getColumns()-1 );
