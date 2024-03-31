@@ -99,6 +99,23 @@ public class ChassMatch {
 			capturedPieces.add(capturedPiece);
 		}
 		
+		// Rock pequeno
+		if (p instanceof King && target.getColumns() == source.getColumns() + 2) {
+			Position sourceT = new Position(source.getRows(), source.getColumns() +3);
+			Position targetT = new Position(source.getRows(), source.getColumns() +1);
+			ChassPiece rook = (ChassPiece)board.removePiece(sourceT);
+			board.placePiece(rook, targetT);
+			rook.increaseMoveCount();
+		}
+		// Rock grande
+		if (p instanceof King && target.getColumns() == source.getColumns() - 2) {
+			Position sourceT = new Position(source.getRows(), source.getColumns() -4);
+			Position targetT = new Position(source.getRows(), source.getColumns() -1);
+			ChassPiece rook = (ChassPiece)board.removePiece(sourceT);
+			board.placePiece(rook, targetT);
+			rook.increaseMoveCount();
+		}
+		
 		return capturedPiece;
 	}
 	
@@ -112,6 +129,24 @@ public class ChassMatch {
 			capturedPieces.remove(capturedPiece);
 			piecesOnTheBoard.add(capturedPiece);
 		}
+		// Rock pequeno
+		if (p instanceof King && target.getColumns() == source.getColumns() + 2) {
+			Position sourceT = new Position(source.getRows(), source.getColumns() +3);
+			Position targetT = new Position(source.getRows(), source.getColumns() +1);
+			ChassPiece rook = (ChassPiece)board.removePiece(targetT);
+			board.placePiece(rook, sourceT);
+			rook.decreaseMoveCount();
+		}
+		// Rock grande
+		if (p instanceof King && target.getColumns() == source.getColumns() - 2) {
+			Position sourceT = new Position(source.getRows(), source.getColumns() -4);
+			Position targetT = new Position(source.getRows(), source.getColumns() -1);
+			ChassPiece rook = (ChassPiece)board.removePiece(targetT);
+			board.placePiece(rook, sourceT);
+			rook.decreaseMoveCount();
+		}
+
+		
 	}
 	
 	private void validateSourcePosition(Position position) {
@@ -198,7 +233,7 @@ public class ChassMatch {
         placeNewPiece('b', 1, new Knight(board, Color.BRANCO));        
         placeNewPiece('c', 1, new Bishop(board, Color.BRANCO));
         placeNewPiece('d', 1, new Queen(board, Color.BRANCO));        
-        placeNewPiece('e', 1, new King(board, Color.BRANCO));
+        placeNewPiece('e', 1, new King(board, Color.BRANCO, this));
         placeNewPiece('f', 1, new Bishop(board, Color.BRANCO));        
         placeNewPiece('g', 1, new Knight(board, Color.BRANCO));
         placeNewPiece('h', 1, new Rook(board, Color.BRANCO));
@@ -215,7 +250,7 @@ public class ChassMatch {
         placeNewPiece('b', 8, new Knight(board, Color.PRETO));        
         placeNewPiece('c', 8, new Bishop(board, Color.PRETO)); 
         placeNewPiece('d', 8, new Queen(board, Color.PRETO));        
-        placeNewPiece('e', 8, new King(board, Color.PRETO));
+        placeNewPiece('e', 8, new King(board, Color.PRETO,this));
         placeNewPiece('f', 8, new Bishop(board, Color.PRETO));        
         placeNewPiece('g', 8, new Knight(board, Color.PRETO));
         placeNewPiece('h', 8, new Rook(board, Color.PRETO));
